@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <IsPackable>true</IsPackable>
+        <PackageId>DotnetKubernetesClient</PackageId>
+        <PackageTags>Kubernetes-Client DotNet</PackageTags>
+        <PackageProjectUrl>https://github.com/buehler/dotnet-kubernetes-client/</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/buehler/dotnet-kubernetes-client.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicense>Unlicense</PackageLicense>
+        <PackageDescription>Kubernetes Client written in DotNet. Based on the implementation of google but with certain language additions of C# like generics.</PackageDescription>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <LangVersion>9</LangVersion>
+        <Nullable>enable</Nullable>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Authors>Christoph Bühler</Authors>
+        <Owner>cbuehler</Owner>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="KubernetesClient" Version="3.0.14"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Roslynator.Analyzers" Version="3.0.0" PrivateAssets="All"/>
+        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.261" PrivateAssets="All"/>
+        <AdditionalFiles Include="$(MSBuildThisFileDirectory)/stylecop.json"/>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/project.ruleset</CodeAnalysisRuleSet>
+        <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+</Project>
