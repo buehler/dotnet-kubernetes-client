@@ -21,7 +21,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="KubernetesClient" Version="4.0.2"/>
+        <PackageReference Include="KubernetesClient" Version="4.0.3"/>
     </ItemGroup>
 
     <ItemGroup>
