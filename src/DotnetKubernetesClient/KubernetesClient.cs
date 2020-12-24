@@ -308,8 +308,28 @@ namespace DotnetKubernetesClient
             Action<Exception>? onError = null,
             Action? onClose = null,
             string? @namespace = null,
-            CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken = default,
+            params ILabelSelector[] labelSelectors)
             where TResource : IKubernetesObject<V1ObjectMeta>
+            => Watch<TResource>(
+                timeout,
+                onEvent,
+                onError,
+                onClose,
+                @namespace,
+                cancellationToken,
+                string.Join(",", labelSelectors.Select(l => l.ToExpression())));
+
+        /// <inheritdoc />
+        public Task<Watcher<TResource>> Watch<TResource>(
+        TimeSpan timeout,
+        Action<WatchEventType, TResource> onEvent,
+        Action<Exception>? onError = null,
+        Action? onClose = null,
+        string? @namespace = null,
+        CancellationToken cancellationToken = default,
+        string? labelSelector = null)
+        where TResource : IKubernetesObject<V1ObjectMeta>
         {
             var crd = CustomEntityDefinitionExtensions.CreateResourceDefinition<TResource>();
             var result = string.IsNullOrWhiteSpace(@namespace)
@@ -317,6 +337,7 @@ namespace DotnetKubernetesClient
                     crd.Group,
                     crd.Version,
                     crd.Plural,
+                    labelSelector: labelSelector,
                     timeoutSeconds: (int)timeout.TotalSeconds,
                     watch: true,
                     cancellationToken: cancellationToken)
@@ -325,6 +346,7 @@ namespace DotnetKubernetesClient
                     crd.Version,
                     @namespace,
                     crd.Plural,
+                    labelSelector: labelSelector,
                     timeoutSeconds: (int)timeout.TotalSeconds,
                     watch: true,
                     cancellationToken: cancellationToken);
