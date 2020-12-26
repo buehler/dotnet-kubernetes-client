@@ -181,6 +181,7 @@ namespace DotnetKubernetesClient
         /// If the namespace is omitted, all resources on the cluster are watched.
         /// </param>
         /// <param name="cancellationToken">Cancellation-Token.</param>
+        /// <param name="labelSelectors">A list of label-selectors to apply to the search.</param>
         /// <typeparam name="TResource">The concrete type of the resource.</typeparam>
         /// <returns>A resource watcher for the given resource.</returns>
         Task<Watcher<TResource>> Watch<TResource>(
@@ -189,7 +190,35 @@ namespace DotnetKubernetesClient
             Action<Exception>? onError = null,
             Action? onClose = null,
             string? @namespace = null,
-            CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken = default,
+            params ILabelSelector[] labelSelectors)
+            where TResource : IKubernetesObject<V1ObjectMeta>;
+
+        /// <summary>
+        /// Create a resource watcher on the kubernetes api.
+        /// The resource watcher fires events for resource-events on
+        /// Kubernetes (events: <see cref="WatchEventType"/>.
+        /// </summary>
+        /// <param name="timeout">The timeout which the watcher has (after this timeout, the server will close the connection).</param>
+        /// <param name="onEvent">Action that is called when an event occurs.</param>
+        /// <param name="onError">Action that handles exceptions.</param>
+        /// <param name="onClose">Action that handles closed connections.</param>
+        /// <param name="namespace">
+        /// The namespace to watch for resources (if needed).
+        /// If the namespace is omitted, all resources on the cluster are watched.
+        /// </param>
+        /// <param name="cancellationToken">Cancellation-Token.</param>
+        /// <param name="labelSelector">A string, representing an optional label selector for filtering watched objects.</param>
+        /// <typeparam name="TResource">The concrete type of the resource.</typeparam>
+        /// <returns>A resource watcher for the given resource.</returns>
+        Task<Watcher<TResource>> Watch<TResource>(
+            TimeSpan timeout,
+            Action<WatchEventType, TResource> onEvent,
+            Action<Exception>? onError = null,
+            Action? onClose = null,
+            string? @namespace = null,
+            CancellationToken cancellationToken = default,
+            string? labelSelector = null)
             where TResource : IKubernetesObject<V1ObjectMeta>;
     }
 }
