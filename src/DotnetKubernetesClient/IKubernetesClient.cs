@@ -181,7 +181,7 @@ namespace DotnetKubernetesClient
         /// If the namespace is omitted, all resources on the cluster are watched.
         /// </param>
         /// <param name="cancellationToken">Cancellation-Token.</param>
-        /// <param name="labelSelector">A string, representing an optional label selector for filtering watched objects.</param>
+        /// <param name="labelSelectors">A list of label-selectors to apply to the search.</param>
         /// <typeparam name="TResource">The concrete type of the resource.</typeparam>
         /// <returns>A resource watcher for the given resource.</returns>
         Task<Watcher<TResource>> Watch<TResource>(
@@ -191,7 +191,7 @@ namespace DotnetKubernetesClient
             Action? onClose = null,
             string? @namespace = null,
             CancellationToken cancellationToken = default,
-            params ILabelSelector[] labelSelector)
+            params ILabelSelector[] labelSelectors)
             where TResource : IKubernetesObject<V1ObjectMeta>;
 
         /// <summary>
