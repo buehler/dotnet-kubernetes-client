@@ -5,21 +5,27 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "./build.sh --no-logo --version ${nextRelease.version} --target Pack"
+        "prepareCmd": "./build.sh --no-logo --version ${nextRelease.version} --release-notes '${nextRelease.notes}' --target Pack"
       }
     ]
   ],
   "publish": [
     [
-      "@semantic-release/exec",
-      {
-        "publishCmd": "./build.sh --no-logo --target Publish"
-      }
-    ],
-    [
       "@semantic-release/github",
       {
         "assets": [{ "path": "artifacts/*.nupkg" }]
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "publishCmd": "./build.sh --no-logo --target Publish --source-env GH_NUGET_SOURCE --api-key-env GH_NUGET_API_KEY"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "publishCmd": "./build.sh --no-logo --target Publish --source-env NUGET_SOURCE --api-key-env NUGET_API_KEY"
       }
     ]
   ]

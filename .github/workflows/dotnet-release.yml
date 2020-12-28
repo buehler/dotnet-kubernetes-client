@@ -11,6 +11,8 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.100
+      - name: Create k8s Cluster
+        uses: helm/kind-action@v1.1.0
       - name: Test
         run: ./build.sh --target test --no-logo
   semantic-release:
@@ -30,5 +32,8 @@ jobs:
           extra_plugins: |
             @semantic-release/exec
         env:
-          NUGET_KEY: ${{ secrets.NUGET_KEY }}
+          NUGET_SOURCE: 'https://api.nuget.org/v3/index.json'
+          NUGET_API_KEY: ${{ secrets.NUGET_KEY }}
+          GH_NUGET_SOURCE: 'https://nuget.pkg.github.com/buehler/index.json'
+          GH_NUGET_API_KEY: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
