@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{27EB9E0E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetKubernetesClient.ManualTest", "tests\DotnetKubernetesClient.ManualTest\DotnetKubernetesClient.ManualTest.csproj", "{208F154E-7C67-457A-94D6-DE6A6CD50EB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetKubernetesClient.Test", "tests\DotnetKubernetesClient.Test\DotnetKubernetesClient.Test.csproj", "{A6434801-C880-465B-AD85-6BB14F0367DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,7 @@ Global
 		{BD03B701-0831-4EA3-A51F-9800DF4DF4AF} = {38555E9C-BF88-45AE-8CEB-104CE6C155F4}
 		{B15DC721-8FF1-4ABB-8D02-3D21C328C88D} = {D53B0139-E304-402D-A202-800A6EB655D9}
 		{208F154E-7C67-457A-94D6-DE6A6CD50EB7} = {27EB9E0E-9638-45C9-A17A-134D6849905F}
+		{A6434801-C880-465B-AD85-6BB14F0367DA} = {27EB9E0E-9638-45C9-A17A-134D6849905F}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B15DC721-8FF1-4ABB-8D02-3D21C328C88D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -33,5 +36,9 @@ Global
 		{208F154E-7C67-457A-94D6-DE6A6CD50EB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{208F154E-7C67-457A-94D6-DE6A6CD50EB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{208F154E-7C67-457A-94D6-DE6A6CD50EB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6434801-C880-465B-AD85-6BB14F0367DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6434801-C880-465B-AD85-6BB14F0367DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6434801-C880-465B-AD85-6BB14F0367DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6434801-C880-465B-AD85-6BB14F0367DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

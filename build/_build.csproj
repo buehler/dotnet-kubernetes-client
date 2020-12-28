@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Nuke.Common" Version="5.0.2" />
+    <None Include="../.releaserc.json" LinkBase="config" />
   </ItemGroup>
 
 </Project>
