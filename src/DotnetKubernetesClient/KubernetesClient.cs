@@ -287,18 +287,24 @@ namespace DotnetKubernetesClient
             where TResource : IKubernetesObject<V1ObjectMeta>
         {
             var crd = CustomEntityDefinitionExtensions.CreateResourceDefinition<TResource>();
-            await (string.IsNullOrWhiteSpace(@namespace)
-                ? ApiClient.DeleteClusterCustomObjectAsync(
-                    crd.Group,
-                    crd.Version,
-                    crd.Plural,
-                    name)
-                : ApiClient.DeleteNamespacedCustomObjectAsync(
-                    crd.Group,
-                    crd.Version,
-                    @namespace,
-                    crd.Plural,
-                    name));
+            try
+            {
+                await (string.IsNullOrWhiteSpace(@namespace)
+                    ? ApiClient.DeleteClusterCustomObjectAsync(
+                        crd.Group,
+                        crd.Version,
+                        crd.Plural,
+                        name)
+                    : ApiClient.DeleteNamespacedCustomObjectAsync(
+                        crd.Group,
+                        crd.Version,
+                        @namespace,
+                        crd.Plural,
+                        name));
+            }
+            catch (HttpOperationException e) when (e.Response.StatusCode == HttpStatusCode.NotFound)
+            {
+            }
         }
 
         /// <inheritdoc />
@@ -322,14 +328,14 @@ namespace DotnetKubernetesClient
 
         /// <inheritdoc />
         public Task<Watcher<TResource>> Watch<TResource>(
-        TimeSpan timeout,
-        Action<WatchEventType, TResource> onEvent,
-        Action<Exception>? onError = null,
-        Action? onClose = null,
-        string? @namespace = null,
-        CancellationToken cancellationToken = default,
-        string? labelSelector = null)
-        where TResource : IKubernetesObject<V1ObjectMeta>
+            TimeSpan timeout,
+            Action<WatchEventType, TResource> onEvent,
+            Action<Exception>? onError = null,
+            Action? onClose = null,
+            string? @namespace = null,
+            CancellationToken cancellationToken = default,
+            string? labelSelector = null)
+            where TResource : IKubernetesObject<V1ObjectMeta>
         {
             var crd = CustomEntityDefinitionExtensions.CreateResourceDefinition<TResource>();
             var result = string.IsNullOrWhiteSpace(@namespace)

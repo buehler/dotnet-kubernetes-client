@@ -14,6 +14,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetKubernetesClient.Manu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetKubernetesClient.Test", "tests\DotnetKubernetesClient.Test\DotnetKubernetesClient.Test.csproj", "{A6434801-C880-465B-AD85-6BB14F0367DA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{F6846394-E1A6-413C-8B4C-60BB368C5ECB}"
+ProjectSection(SolutionItems) = preProject
+	config\CodeAnalysis.targets = config\CodeAnalysis.targets
+	config\project.ruleset = config\project.ruleset
+	config\stylecop.json = config\stylecop.json
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+    <Import Project="..\..\config\CodeAnalysis.targets"/>
+
     <PropertyGroup>
         <IsPackable>true</IsPackable>
         <PackageId>DotnetKubernetesClient</PackageId>
@@ -23,16 +25,5 @@
     <ItemGroup>
         <PackageReference Include="KubernetesClient" Version="4.0.5"/>
     </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Roslynator.Analyzers" Version="3.0.0" PrivateAssets="All"/>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.261" PrivateAssets="All"/>
-        <AdditionalFiles Include="$(MSBuildThisFileDirectory)/stylecop.json"/>
-    </ItemGroup>
-
-    <PropertyGroup>
-        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/project.ruleset</CodeAnalysisRuleSet>
-        <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
-    </PropertyGroup>
 
 </Project>

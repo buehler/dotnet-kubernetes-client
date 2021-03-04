@@ -119,6 +119,19 @@ namespace DotnetKubernetesClient.Test
             configs.Count.Should().Be(1);
         }
 
+        [Fact]
+        public async Task Should_Not_Throw_On_Not_Found_Delete()
+        {
+            var config = new V1ConfigMap
+            {
+                Kind = V1ConfigMap.KubeKind,
+                ApiVersion = V1ConfigMap.KubeApiVersion,
+                Metadata = new(name: RandomName(), namespaceProperty: "default"),
+                Data = new Dictionary<string, string> { { "Hello", "World" } },
+            };
+            await _client.Delete(config);
+        }
+
         public void Dispose()
         {
             _client.Delete(_objects).Wait();
