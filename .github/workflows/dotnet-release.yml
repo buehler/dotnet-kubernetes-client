@@ -3,7 +3,8 @@ name: .NET Release
 on:
   workflow_dispatch:
   push:
-    - master
+    branches:
+      - master
 
 jobs:
   test:
