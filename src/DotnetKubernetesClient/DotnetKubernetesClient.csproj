@@ -9,7 +9,7 @@
         <PackageProjectUrl>https://github.com/buehler/dotnet-kubernetes-client/</PackageProjectUrl>
         <RepositoryUrl>https://github.com/buehler/dotnet-kubernetes-client.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageLicense>Unlicense</PackageLicense>
+        <PackageLicense>Apache-2.0</PackageLicense>
         <PackageDescription>Kubernetes Client written in DotNet. Based on the implementation of google but with certain language additions of C# like generics.</PackageDescription>
     </PropertyGroup>
 
