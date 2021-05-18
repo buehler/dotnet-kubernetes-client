@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nuke.Common" Version="5.1.1" />
+    <PackageReference Include="Nuke.Common" Version="5.1.2" />
     <None Include="../.releaserc.json" LinkBase="config" />
   </ItemGroup>
 
