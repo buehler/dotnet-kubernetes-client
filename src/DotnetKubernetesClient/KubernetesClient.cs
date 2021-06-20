@@ -239,7 +239,7 @@ namespace DotnetKubernetesClient
 
         /// <inheritdoc />
         public async Task UpdateStatus<TResource>(TResource resource)
-            where TResource : IKubernetesObject<V1ObjectMeta>, IStatus<object>
+            where TResource : IKubernetesObject<V1ObjectMeta>
         {
             var crd = resource.CreateResourceDefinition();
             var result = await (string.IsNullOrWhiteSpace(resource.Metadata.NamespaceProperty)

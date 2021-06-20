@@ -128,7 +128,7 @@ namespace DotnetKubernetesClient
         /// <typeparam name="TResource">The concrete type of the resource.</typeparam>
         /// <returns>A task that completes when the call was made.</returns>
         public Task UpdateStatus<TResource>(TResource resource)
-            where TResource : IKubernetesObject<V1ObjectMeta>, IStatus<object>;
+            where TResource : IKubernetesObject<V1ObjectMeta>;
 
         /// <summary>
         /// Delete a given resource from the Kubernetes api.
