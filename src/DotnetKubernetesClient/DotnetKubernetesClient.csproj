@@ -16,14 +16,14 @@
     <PropertyGroup>
         <LangVersion>9</LangVersion>
         <Nullable>enable</Nullable>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <Authors>Christoph Bühler</Authors>
         <Owner>cbuehler</Owner>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="KubernetesClient" Version="4.0.26"/>
+        <PackageReference Include="KubernetesClient" Version="5.0.11"/>
     </ItemGroup>
 
 </Project>
