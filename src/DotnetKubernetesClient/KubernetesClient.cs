@@ -46,7 +46,7 @@ namespace DotnetKubernetesClient
                     ContractResolver = new KubernetesNamingConvention(),
                     Converters = new List<JsonConverter>
                     {
-                        new StringEnumConverter { CamelCaseText = true },
+                        new StringEnumConverter { CamelCaseText = false },
                         new Iso8601TimeSpanConverter(),
                     },
                     DateFormatString = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.ffffffK",
@@ -60,7 +60,7 @@ namespace DotnetKubernetesClient
                     ContractResolver = new KubernetesNamingConvention(),
                     Converters = new List<JsonConverter>
                     {
-                        new StringEnumConverter { CamelCaseText = true },
+                        new StringEnumConverter { CamelCaseText = false },
                         new Iso8601TimeSpanConverter(),
                     },
                     DateFormatString = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.ffffffK",
