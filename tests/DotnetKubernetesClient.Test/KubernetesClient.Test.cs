@@ -35,6 +35,7 @@ namespace DotnetKubernetesClient.Test
                     Metadata = new(name: RandomName(), namespaceProperty: "default"),
                     Data = new Dictionary<string, string> { { "Hello", "World" } },
                 });
+
             _objects.Add(config);
 
             config.Metadata.Should().NotBeNull();
@@ -86,7 +87,9 @@ namespace DotnetKubernetesClient.Test
             _objects.Add(config2);
 
             var configs = await _client.List<V1ConfigMap>("default");
-            configs.Count.Should().Be(2);
+
+            // there are _at least_ 2 config maps (the two that were created)
+            configs.Count.Should().BeGreaterOrEqualTo(2);
         }
 
         [Fact]
@@ -111,12 +114,12 @@ namespace DotnetKubernetesClient.Test
             _objects.Add(config1);
 
             var configs = await _client.List<V1ConfigMap>("default");
-            configs.Count.Should().Be(2);
+            configs.Count.Should().BeGreaterOrEqualTo(2);
 
             await _client.Delete(config2);
 
             configs = await _client.List<V1ConfigMap>("default");
-            configs.Count.Should().Be(1);
+            configs.Count.Should().BeGreaterOrEqualTo(1);
         }
 
         [Fact]
