@@ -14,6 +14,27 @@ internal static class KubernetesJson
 {
     private static readonly JsonSerializerOptions JsonSerializerOptions = new();
 
+    static KubernetesJson()
+    {
+        JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        JsonSerializerOptions.Converters.Add(new Iso8601TimeSpanConverter());
+        JsonSerializerOptions.Converters.Add(new KubernetesDateTimeConverter());
+        JsonSerializerOptions.Converters.Add(new KubernetesDateTimeOffsetConverter());
+        JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    }
+
+    public static TValue? Deserialize<TValue>(string json) =>
+        JsonSerializer.Deserialize<TValue>(json, JsonSerializerOptions);
+
+    public static TValue? Deserialize<TValue>(Stream json) =>
+        JsonSerializer.Deserialize<TValue>(json, JsonSerializerOptions);
+
+    public static TValue? Deserialize<TValue>(JsonElement json) =>
+        json.Deserialize<TValue>(JsonSerializerOptions);
+
+    public static string Serialize(object value) => JsonSerializer.Serialize(value, JsonSerializerOptions);
+
     private class Iso8601TimeSpanConverter : JsonConverter<TimeSpan>
     {
         public override TimeSpan Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -67,25 +88,4 @@ internal static class KubernetesJson
             UtcConverter.Write(writer, value, options);
         }
     }
-
-    static KubernetesJson()
-    {
-        JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-        JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-        JsonSerializerOptions.Converters.Add(new Iso8601TimeSpanConverter());
-        JsonSerializerOptions.Converters.Add(new KubernetesDateTimeConverter());
-        JsonSerializerOptions.Converters.Add(new KubernetesDateTimeOffsetConverter());
-        JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    }
-
-    public static TValue? Deserialize<TValue>(string json) =>
-        JsonSerializer.Deserialize<TValue>(json, JsonSerializerOptions);
-
-    public static TValue? Deserialize<TValue>(Stream json) =>
-        JsonSerializer.Deserialize<TValue>(json, JsonSerializerOptions);
-
-    public static TValue? Deserialize<TValue>(JsonElement json) =>
-        json.Deserialize<TValue>(JsonSerializerOptions);
-
-    public static string Serialize(object value) => JsonSerializer.Serialize(value, JsonSerializerOptions);
 }
