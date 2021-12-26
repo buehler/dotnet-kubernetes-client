@@ -50,14 +50,14 @@ namespace DotnetKubernetesClient.Test
                 {
                     Kind = V1ConfigMap.KubeKind,
                     ApiVersion = V1ConfigMap.KubeApiVersion,
-                    Metadata = new(name: RandomName(), namespaceProperty: "default"),
+                    Metadata = new V1ObjectMeta(name: RandomName(), namespaceProperty: "default"),
                     Data = new Dictionary<string, string> { { "Hello", "World" } },
                 });
             var r1 = config.Metadata.ResourceVersion;
             _objects.Add(config);
 
             config.Data.Add("test", "value");
-            await _client.Update(config);
+            config = await _client.Update(config);
             var r2 = config.Metadata.ResourceVersion;
 
             r1.Should().NotBe(r2);

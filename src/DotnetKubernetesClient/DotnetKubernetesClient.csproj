@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="..\..\config\CodeAnalysis.targets"/>
+    <Import Project="..\..\config\CodeAnalysis.targets" />
 
     <PropertyGroup>
         <IsPackable>true</IsPackable>
@@ -14,7 +14,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <LangVersion>9</LangVersion>
+        <LangVersion>10</LangVersion>
         <Nullable>enable</Nullable>
         <TargetFramework>netstandard2.1</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -23,7 +23,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="KubernetesClient" Version="6.0.26"/>
+        <PackageReference Include="KubernetesClient" Version="7.0.4" />
     </ItemGroup>
 
 </Project>
