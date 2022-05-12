@@ -8,14 +8,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using DotnetKubernetesClient.Entities;
 using DotnetKubernetesClient.LabelSelectors;
-using DotnetKubernetesClient.Serialization;
 using k8s;
+using k8s.Autorest;
 using k8s.Models;
-using Microsoft.Rest;
-using Microsoft.Rest.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 
 namespace DotnetKubernetesClient;
 
@@ -94,7 +89,7 @@ public class KubernetesClient : IKubernetesClient
 
             if (result is JsonElement element)
             {
-                return KubernetesJson.Deserialize<TResource>(element);
+                return element.Deserialize<TResource>();
             }
 
             return null;
@@ -127,7 +122,7 @@ public class KubernetesClient : IKubernetesClient
 
         if (result is JsonElement element)
         {
-            var list = KubernetesJson.Deserialize<EntityList<TResource>>(element);
+            var list = element.Deserialize<EntityList<TResource>>();
             return list?.Items ?? throw new ArgumentException("Could not parse result");
         }
 
@@ -177,7 +172,7 @@ public class KubernetesClient : IKubernetesClient
 
         if (result is JsonElement element)
         {
-            return KubernetesJson.Deserialize<TResource>(element) ?? throw new ArgumentException("Could not parse result");
+            return element.Deserialize<TResource>() ?? throw new ArgumentException("Could not parse result");
         }
 
         throw new ArgumentException("Could not parse result");
@@ -205,7 +200,7 @@ public class KubernetesClient : IKubernetesClient
 
         if (result is JsonElement element)
         {
-            return KubernetesJson.Deserialize<TResource>(element) ?? throw new ArgumentException("Could not parse result");
+            return element.Deserialize<TResource>() ?? throw new ArgumentException("Could not parse result");
         }
 
         throw new ArgumentException("Could not parse result");
@@ -233,7 +228,7 @@ public class KubernetesClient : IKubernetesClient
 
         if (result is JsonElement element)
         {
-            var parsed = KubernetesJson.Deserialize<TResource>(element) ?? throw new ArgumentException("Could not parse result");
+            var parsed = element.Deserialize<TResource>() ?? throw new ArgumentException("Could not parse result");
             resource.Metadata.ResourceVersion = parsed.Metadata.ResourceVersion;
             return;
         }
