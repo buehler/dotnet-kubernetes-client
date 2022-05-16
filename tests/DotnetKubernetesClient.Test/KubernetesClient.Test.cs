@@ -108,7 +108,7 @@ namespace DotnetKubernetesClient.Test
                 {
                     Kind = V1ConfigMap.KubeKind,
                     ApiVersion = V1ConfigMap.KubeApiVersion,
-                    Metadata = new(name: "demo-config-two", namespaceProperty: "default"),
+                    Metadata = new(name: RandomName(), namespaceProperty: "default"),
                     Data = new Dictionary<string, string> { { "Hello", "World" } },
                 });
             _objects.Add(config1);
