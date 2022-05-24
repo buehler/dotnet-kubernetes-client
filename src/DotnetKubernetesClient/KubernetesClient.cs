@@ -89,7 +89,7 @@ public class KubernetesClient : IKubernetesClient
 
             if (result is JsonElement element)
             {
-                return element.Deserialize<TResource>();
+                return Deserialize<TResource>(element);
             }
 
             return null;
@@ -122,7 +122,7 @@ public class KubernetesClient : IKubernetesClient
 
         if (result is JsonElement element)
         {
-            var list = element.Deserialize<EntityList<TResource>>();
+            var list = Deserialize<EntityList<TResource>>(element);
             return list?.Items ?? throw new ArgumentException("Could not parse result");
         }
 
@@ -172,7 +172,7 @@ public class KubernetesClient : IKubernetesClient
 
         if (result is JsonElement element)
         {
-            return element.Deserialize<TResource>() ?? throw new ArgumentException("Could not parse result");
+            return Deserialize<TResource>(element) ?? throw new ArgumentException("Could not parse result");
         }
 
         throw new ArgumentException("Could not parse result");
@@ -200,7 +200,7 @@ public class KubernetesClient : IKubernetesClient
 
         if (result is JsonElement element)
         {
-            return element.Deserialize<TResource>() ?? throw new ArgumentException("Could not parse result");
+            return Deserialize<TResource>(element) ?? throw new ArgumentException("Could not parse result");
         }
 
         throw new ArgumentException("Could not parse result");
@@ -228,7 +228,7 @@ public class KubernetesClient : IKubernetesClient
 
         if (result is JsonElement element)
         {
-            var parsed = element.Deserialize<TResource>() ?? throw new ArgumentException("Could not parse result");
+            var parsed = Deserialize<TResource>(element) ?? throw new ArgumentException("Could not parse result");
             resource.Metadata.ResourceVersion = parsed.Metadata.ResourceVersion;
             return;
         }
@@ -332,5 +332,18 @@ public class KubernetesClient : IKubernetesClient
                 onEvent,
                 onError,
                 onClose));
+    }
+
+    private static T Deserialize<T>(JsonElement element)
+    {
+        // If we were able to get the default options used by KubernetesJson,
+        // deserialize directly, it's going to be faster.
+        if (KubernetesJsonOptions.DefaultOptions is { } options)
+        {
+            element.Deserialize<T>(options);
+        }
+
+        // Else, fallback to the slower but more reliable method.
+        return KubernetesJson.Deserialize<T>(element.GetRawText());
     }
 }
