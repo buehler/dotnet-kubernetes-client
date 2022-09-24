@@ -16,7 +16,7 @@ jobs:
         with:
           dotnet-version: 6.0.101
       - name: Create k8s Cluster
-        uses: helm/kind-action@v1.3.0
+        uses: helm/kind-action@v1.4.0
       - name: Test
         run: ./build.sh --target test --no-logo
   semantic-release:
